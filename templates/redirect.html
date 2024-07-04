@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        const port = "{{ port }}";
+        
+        function cleanup() {
+            navigator.sendBeacon('/cleanup', JSON.stringify({ port: port }));
+        }
+
+        window.addEventListener('beforeunload', cleanup);
+        
+        // Redirect after a small delay to ensure the cleanup function is registered
+        setTimeout(() => {
+            window.location.href = "http://127.0.0.1:" + port;
+        }, 100);
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
